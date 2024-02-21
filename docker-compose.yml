@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  backend:
+    build: "./backend"
+    image: "app-backend"    
+    ports:
+      - 4000:3000
+    env_file:
+      - .env
+    depends_on:
+      - postgres    
+  postgres:
+    image: "postgres:12"
+    env_file:
+      - .env
+    volumes:    
+     - ./pg-data:/var/lib/postgresql/data/pgdata
+  frontend:
+    build: "./frontend"
+    image: "app-frontend"
+    ports:
+      - 8081:80  
+   
