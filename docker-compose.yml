@@ -1,4 +1,5 @@
 version: "3.9"
+
 services:
   backend:
     build: "./backend"
@@ -8,16 +9,32 @@ services:
     env_file:
       - .env
     depends_on:
-      - postgres    
+      - postgres
+    networks:
+      - internal-network
+      - external-network    
   postgres:
     image: "postgres:12"
     env_file:
       - .env
     volumes:    
      - ./pg-data:/var/lib/postgresql/data/pgdata
+    restart: unless-stopped
+    networks:
+      - internal-network
   frontend:
     build: "./frontend"
     image: "app-frontend"
     ports:
-      - 8081:80  
+      - 8081:80
+    networks:
+      - external-network
+
+networks:
+  internal-network:
+    driver: bridge
+    internal: true
+  external-network:
+    driver: bridge
+    
    
