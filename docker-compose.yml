@@ -2,8 +2,10 @@ version: "3.2"
 
 services:
   backend:
-    build: "./backend"
-    image: "app-backend"    
+    build:
+      context: "./backend"
+      dockerfile: Dockerfile
+    image: "backend"    
     ports:
       - 4000:3000
     env_file:
@@ -23,8 +25,10 @@ services:
     networks:
       - internal-network
   frontend:
-    build: "./frontend"
-    image: "app-frontend"
+    build:
+      context: "./frontend"
+      dockerfile: Dockerfile
+    image: "frontend"
     ports:
       - 8081:80
     networks:
