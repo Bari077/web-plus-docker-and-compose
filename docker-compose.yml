@@ -1,12 +1,13 @@
 version: "3.2"
 
-services:
+services:  
   backend:
+    container_name: app-backend
     build:
       context: "./backend"
       dockerfile: Dockerfile      
     image: "app-backend"
-    container-name: app-backend        
+            
     ports:
       - 4000:3000
     env_file:
@@ -17,8 +18,8 @@ services:
       - internal-network
       - external-network    
   postgres:
-    image: "postgres:12"
-    container-name: postgres
+    container_name: postgres
+    image: "postgres:12"    
     env_file:
       - .env
     volumes:    
@@ -27,11 +28,11 @@ services:
     networks:
       - internal-network
   frontend:
+    container_name: app-frontend
     build:
       context: "./frontend"
       dockerfile: Dockerfile
-    image: "app-frontend"
-    container-name: app-frontend
+    image: "app-frontend"    
     ports:
       - 8081:80
     networks:
