@@ -4,8 +4,9 @@ services:
   backend:
     build:
       context: "./backend"
-      dockerfile: Dockerfile
-    image: "backend"    
+      dockerfile: Dockerfile      
+    image: "app-backend"
+    container-name: app-backend        
     ports:
       - 4000:3000
     env_file:
@@ -17,6 +18,7 @@ services:
       - external-network    
   postgres:
     image: "postgres:12"
+    container-name: postgres
     env_file:
       - .env
     volumes:    
@@ -28,7 +30,8 @@ services:
     build:
       context: "./frontend"
       dockerfile: Dockerfile
-    image: "frontend"
+    image: "app-frontend"
+    container-name: app-frontend
     ports:
       - 8081:80
     networks:
